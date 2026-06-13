@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #111111;
+  --card-bg: #ffffff;
+  --card-border: rgba(9, 9, 11, 0.08);
+  --accent: #4f46e5;
+  --accent-glow: rgba(79, 70, 229, 0.1);
+  --muted: #71717a;
+}
+
+.dark {
+  --background: #000000;
+  --foreground: #f4f4f5;
+  --card-bg: #09090b;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --accent: #818cf8;
+  --accent-glow: rgba(129, 140, 248, 0.15);
+  --muted: #a1a1aa;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-accent: var(--accent);
+  --color-accent-glow: var(--accent-glow);
+  --color-muted-text: var(--muted);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Base resets and animations */
+html {
+  scroll-behavior: smooth;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Custom left-to-right clip wipe animations */
+@keyframes wipe-out-left-to-right {
+  0% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    clip-path: inset(0 0 0 100%);
+    opacity: 0;
+    transform: translateX(10px);
+  }
+}
+
+@keyframes wipe-in-left-to-right {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-wipe-out {
+  animation: wipe-out-left-to-right 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-wipe-in {
+  animation: wipe-in-left-to-right 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Custom diagonal fade-in animation (fade in from top-left to bottom-right) */
+@keyframes fade-in-diagonal {
+  0% {
+    opacity: 0;
+    transform: translate(-30px, -30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+.animate-fade-diagonal {
+  animation: fade-in-diagonal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Custom diagonal box reveal animation (reveals from top-left to bottom-right) */
+@keyframes box-reveal-diagonal {
+  0% {
+    clip-path: inset(0 100% 100% 0);
+    opacity: 0;
+    transform: scale(0.95) translate(-15px, -15px);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+.animate-box-reveal {
+  animation: box-reveal-diagonal 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Glassmorphism custom classes */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass {
+  background: rgba(9, 9, 11, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Ambient background drift and rotation animations using cubic-bezier curves */
+@keyframes blob-drift {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(40px, -60px) scale(1.15);
+  }
+  66% {
+    transform: translate(-30px, 30px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+@keyframes float-rotate {
+  0% {
+    transform: translate(0px, 0px) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate(40px, 60px) rotate(180deg) scale(1.08);
+  }
+  100% {
+    transform: translate(0px, 0px) rotate(360deg) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob-drift 22s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-cube-float {
+  animation: float-rotate 32s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+
+/* Animated floating glass squares with varying translation and rotation */
+@keyframes float-1 {
+  0% { transform: translateY(0px) rotate(0deg) scale(1); }
+  50% { transform: translateY(-40px) rotate(90deg) scale(1.1); }
+  100% { transform: translateY(0px) rotate(0deg) scale(1); }
+}
+
+@keyframes float-2 {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+  50% { transform: translate(-30px, 40px) rotate(-120deg) scale(0.92); }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+}
+
+@keyframes float-3 {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+  50% { transform: translate(45px, -35px) rotate(180deg) scale(1.15); }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+}
+
+@keyframes float-4 {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+  50% { transform: translate(-25px, -45px) rotate(75deg) scale(0.95); }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+}
+
+@keyframes float-5 {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+  50% { transform: translate(35px, 35px) rotate(-60deg) scale(1.06); }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+}
+
+.animate-float-1 { animation: float-1 28s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite; }
+.animate-float-2 { animation: float-2 34s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite; }
+.animate-float-3 { animation: float-3 30s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite; }
+.animate-float-4 { animation: float-4 32s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite; }
+.animate-float-5 { animation: float-5 26s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite; }
+
+/* Unified entry transitions for sections and pages */
+@keyframes section-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-section {
+  animation: section-reveal 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
