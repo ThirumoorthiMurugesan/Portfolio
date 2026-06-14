@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Thirumoorthi Murugesan | Portfolio",
+  title: "Thirumoorthi Murugesan ",
   description: "Full Stack Developer & OIC Integration Developer Portfolio",
 };
 
